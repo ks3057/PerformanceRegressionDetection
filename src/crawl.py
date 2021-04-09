@@ -6,8 +6,8 @@ from datetime import datetime
 
 def initialise():
     # commons_pool()
-    jackson_core()
-
+    # jackson_core()
+    commons_dbcp()
 
 def commons_pool():
     dt1 = datetime(2007, 12, 10, 00, 50, 7)
@@ -79,6 +79,39 @@ def jackson_core():
     print(count)
     f = open("outputs/jackson-core-ignored.txt", "w")
     f.write(str(jackson_core_reg.difference(commit_identified)))
+    f.close()
+
+
+def commons_dbcp():
+    dt1 = datetime(2014, 2, 5, 22, 30, 34)
+    dt2 = datetime(2014, 3, 3, 13, 43, 30)
+    count = 0
+    commit_classify = {}
+    commit_identified = set()
+    commons_dbcp_reg = {
+        'a3cefc2063d220efdc8a42a66164a5ff0bfd690a',
+        'a127eaf6b81f3be06282e4b67692bacc020b8703'}
+
+    for commit in RepositoryMining(
+            '/Users/kirtanasuresh/Documents/commons-dbcp',
+            only_in_branch="master", only_no_merge=True, since=dt1,
+            to=dt2).traverse_commits():
+        if commit.hash in commons_dbcp_reg:
+            commit_classify[commit.hash] = "PR"
+            count += 1
+            commit_identified.add(commit.hash)
+        else:
+            commit_classify[commit.hash] = "NPR"
+
+    with open('outputs/commons-dbcp.csv', 'w') as f:
+        w = csv.writer(f, delimiter=',')
+        w.writerow(["hashcode", "performance regression"])
+        for key, values in commit_classify.items():
+            w.writerow([key, values])
+
+    print(count)
+    f = open("outputs/commons-dbcp-ignored.txt", "w")
+    f.write(str(commons_dbcp_reg.difference(commit_identified)))
     f.close()
 
 
