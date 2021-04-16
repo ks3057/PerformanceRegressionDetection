@@ -1,8 +1,0 @@
-commit hash, author name, filename, nloc, cyclomatic complexity, num lines added, num lines removed, label
-6eca4c05986bac88d1b65af83348a754efa36559,Stephen Colebourne,RELEASE-NOTES.txt,None,None,3,0,PR
-6eca4c05986bac88d1b65af83348a754efa36559,Stephen Colebourne,ByteArrayOutputStream.java,131,30,36,18,PR
-6eca4c05986bac88d1b65af83348a754efa36559,Stephen Colebourne,ByteArrayOutputStreamTestCase.java,90,15,8,0,PR
-c658828d7b66e6638968506236a3a761815c8984,Stephen Colebourne,project.xml,None,None,3,0,NPR
-3e300278eca4c60bc35f9784e20e1bdb0bc8f0e7,Henri Yandell,FileUtils.java,673,176,78,25,NPR
-59ffcad15d220c2bc1f70f01d58bc31dec04b423,Gary D. Gregory,changes.xml,None,None,3,0,PR
-59ffcad15d220c2bc1f70f01d58bc31dec04b423,Gary D. Gregory,Tailer.java,147,32,66,33,PR
