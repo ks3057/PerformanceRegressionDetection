@@ -9,7 +9,9 @@ def initialise():
     # jackson_core()
     # commons_dbcp()
     # commons_fileupload()
-    commons_compress()
+    # commons_compress()
+    commons_io()
+
 
 def commons_pool():
     dt1 = datetime(2007, 12, 10, 00, 50, 7)
@@ -195,6 +197,54 @@ def commons_compress():
     f = open("outputs/commons-compress-ignored.txt", "w")
     f.write(str(commons_fileupload_reg.difference(commit_identified)))
     f.close()
+
+
+def commons_io():
+    dt1 = datetime(2006, 12, 29, 13, 45, 00)
+    dt2 = datetime(2012, 6, 1, 17, 27, 22)
+    commit_classify = {}
+    commit_identified = set()
+    commons_fileupload_reg = {
+        '6eca4c05986bac88d1b65af83348a754efa36559',
+        '59ffcad15d220c2bc1f70f01d58bc31dec04b423'}
+
+    number_of_non_perf_files_required = len(commons_fileupload_reg)
+    number_of_non_perf_files_current = 0
+
+    f = open("outputs/commons-io-expanded.csv", "w")
+    f.write("commit hash, author name, filename, nloc, cyclomatic complexity, "
+            "num lines added, "
+            "num lines removed, label")
+
+    for commit in RepositoryMining(
+            '/Users/kirtanasuresh/Documents/commons-io',
+            only_in_branch="master", only_no_merge=True, since=dt1,
+            to=dt2).traverse_commits():
+        if commit.hash in commons_fileupload_reg:
+            commit_classify[commit.hash] = "PR"
+            commit_identified.add(commit.hash)
+        else:
+            if number_of_non_perf_files_required == \
+                    number_of_non_perf_files_current:
+                continue
+            else:
+                commit_classify[commit.hash] = "NPR"
+                number_of_non_perf_files_current += 1
+
+        for m in commit.modifications:
+            f = open("outputs/commons-io-expanded.csv", "a")
+            list1 = [commit.hash, commit.author.name, m.filename,
+                     m.nloc, m.complexity,
+                     m.added, m.removed,
+                     commit_classify[commit.hash]]
+            list1 = map(str, list1)
+            x = ",".join(list1)
+            x = "\n" + x
+            f.write(x)
+
+        f = open("outputs/commons-compress-ignored.txt", "w")
+        f.write(str(commons_fileupload_reg.difference(commit_identified)))
+        f.close()
 
 
 def main():
