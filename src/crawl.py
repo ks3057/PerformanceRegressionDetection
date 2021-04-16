@@ -173,6 +173,9 @@ def build_csv(dt1, dt2, performance_regression_commits_from_peass, project,
                     commit_has_changed_tests = commit_has_changed_tests or True
         if not commit_has_changed_tests:
             for m in commit.modifications:
+                # ignore non java files
+                if "java" not in m.filename:
+                    continue
                 f = open("outputs/final.csv", "a")
                 list1 = [commit.hash, commit.author.name, m.filename,
                          m.nloc, m.complexity,
