@@ -5,7 +5,8 @@ from datetime import datetime
 
 def initialise():
     f = open("outputs/final.csv", "w")
-    f.write("commit hash, author name, filename, nloc, cyclomatic complexity, "
+    f.write("commit hash, repository name, author name, filename, nloc, "
+            "cyclomatic complexity, "
             "num lines added, "
             "num lines removed, label" + "\n")
 
@@ -15,19 +16,24 @@ def initialise():
     commons_fileupload()
     commons_compress()
     commons_io()
+    # k_9()
+    commons_csv()
+    commons_text()
+    commons_imaging()
 
 
 def commons_pool():
     dt1 = datetime(2007, 12, 10, 00, 50, 7)
     dt2 = datetime(2014, 9, 23, 13, 7, 52)
-    performance_regression_commits_from_peass = {'16a2ef563c9d87253a2347628f796776d0987851',
-                        '094266f6a51a974ffb6dc264bcb6f7c13801fd96',
-                        '2113166ed6a359adfcde240310960f1aee3f2607',
-                        '1d9e39095ccecdf3668236177bc17b4561382316',
-                        '6979917d99021f44432d089588477439bee37d05',
-                        'f7a6d7ae57ee0ed9e1da7967730def2c5ffe3e8c',
-                        '5392bccc645803a66541ec1e01172a22f50da7d9',
-                        '6df9afdb2c5125beb388b67570f73818d660aa12'}
+    performance_regression_commits_from_peass = {
+        '16a2ef563c9d87253a2347628f796776d0987851',
+        '094266f6a51a974ffb6dc264bcb6f7c13801fd96',
+        '2113166ed6a359adfcde240310960f1aee3f2607',
+        '1d9e39095ccecdf3668236177bc17b4561382316',
+        '6979917d99021f44432d089588477439bee37d05',
+        'f7a6d7ae57ee0ed9e1da7967730def2c5ffe3e8c',
+        '5392bccc645803a66541ec1e01172a22f50da7d9',
+        '6df9afdb2c5125beb388b67570f73818d660aa12'}
 
     number_of_non_perf_files_required = len(
         performance_regression_commits_from_peass)
@@ -72,7 +78,8 @@ def commons_dbcp():
         'a3cefc2063d220efdc8a42a66164a5ff0bfd690a',
         'a127eaf6b81f3be06282e4b67692bacc020b8703'}
 
-    number_of_non_perf_files_required = len(performance_regression_commits_from_peass)
+    number_of_non_perf_files_required = len(
+        performance_regression_commits_from_peass)
     number_of_non_perf_files_current = 0
 
     build_csv(dt1, dt2, performance_regression_commits_from_peass,
@@ -89,10 +96,12 @@ def commons_fileupload():
         '774ef160d591b579f703c694002e080f99bcd28b',
         'afdedc9580dde03287979607f9ce441b23b6bc90'}
 
-    number_of_non_perf_files_required = len(performance_regression_commits_from_peass)
+    number_of_non_perf_files_required = len(
+        performance_regression_commits_from_peass)
     number_of_non_perf_files_current = 0
 
-    build_csv(dt1, dt2, performance_regression_commits_from_peass, "commons-fileupload",
+    build_csv(dt1, dt2, performance_regression_commits_from_peass,
+              "commons-fileupload",
               number_of_non_perf_files_required,
               number_of_non_perf_files_current)
 
@@ -117,10 +126,12 @@ def commons_compress():
         '1418705648202405208e3f4d900dfcc81457cbac',
         '516c38fd95fff30841f9af370f50cf1f7733c209'}
 
-    number_of_non_perf_files_required = len(performance_regression_commits_from_peass)
+    number_of_non_perf_files_required = len(
+        performance_regression_commits_from_peass)
     number_of_non_perf_files_current = 0
 
-    build_csv(dt1, dt2, performance_regression_commits_from_peass, "commons-compress",
+    build_csv(dt1, dt2, performance_regression_commits_from_peass,
+              "commons-compress",
               number_of_non_perf_files_required,
               number_of_non_perf_files_current)
 
@@ -132,7 +143,8 @@ def commons_io():
         '6eca4c05986bac88d1b65af83348a754efa36559',
         '59ffcad15d220c2bc1f70f01d58bc31dec04b423'}
 
-    number_of_non_perf_files_required = len(performance_regression_commits_from_peass)
+    number_of_non_perf_files_required = len(
+        performance_regression_commits_from_peass)
     number_of_non_perf_files_current = 0
 
     build_csv(dt1, dt2, performance_regression_commits_from_peass, "commons-io",
@@ -140,10 +152,72 @@ def commons_io():
               number_of_non_perf_files_current)
 
 
+def k_9():
+    dt1 = datetime(2017, 1, 15, 17, 48, 4)
+    dt2 = datetime(2017, 1, 17, 17, 27, 22)
+    performance_regression_commits_from_peass = {
+        '79c65d4cff60ef6dd3e452591ae8f8dcec18630a'}
+
+    number_of_non_perf_files_required = len(
+        performance_regression_commits_from_peass)
+    number_of_non_perf_files_current = 0
+
+    build_csv(dt1, dt2, performance_regression_commits_from_peass, "k-9",
+              number_of_non_perf_files_required,
+              number_of_non_perf_files_current)
+
+
+def commons_csv():
+    dt1 = datetime(2012, 3, 29, 00, 58, 30)
+    dt2 = datetime(2012, 3, 31, 00, 58, 30)
+    performance_regression_commits_from_peass = {
+        '19ba389fe8194bb6c22102b32e021d8487e1e307'}
+
+    number_of_non_perf_files_required = len(
+        performance_regression_commits_from_peass)
+    number_of_non_perf_files_current = 0
+
+    build_csv(dt1, dt2, performance_regression_commits_from_peass,
+              "commons-csv",
+              number_of_non_perf_files_required,
+              number_of_non_perf_files_current)
+
+
+def commons_text():
+    dt1 = datetime(2017, 10, 12, 20, 5, 45)
+    dt2 = datetime(2017, 10, 14, 20, 5, 45)
+    performance_regression_commits_from_peass = {
+        '61cbf0afe04d86a546e7094513328c9f7a7363ae'}
+
+    number_of_non_perf_files_required = len(
+        performance_regression_commits_from_peass)
+    number_of_non_perf_files_current = 0
+
+    build_csv(dt1, dt2, performance_regression_commits_from_peass,
+              "commons-text",
+              number_of_non_perf_files_required,
+              number_of_non_perf_files_current)
+
+
+def commons_imaging():
+    dt1 = datetime(2012, 5, 9, 5, 57, 7)
+    dt2 = datetime(2012, 5, 11, 5, 57, 7)
+    performance_regression_commits_from_peass = {
+        '6d86230edf3bece2e9c06da893d0b08324348b3a'}
+
+    number_of_non_perf_files_required = len(
+        performance_regression_commits_from_peass)
+    number_of_non_perf_files_current = 0
+
+    build_csv(dt1, dt2, performance_regression_commits_from_peass,
+              "commons-imaging",
+              number_of_non_perf_files_required,
+              number_of_non_perf_files_current)
+
+
 def build_csv(dt1, dt2, performance_regression_commits_from_peass, project,
               number_of_non_perf_files_required,
               number_of_non_perf_files_current):
-
     commit_classify = {}
     commit_identified = set()
 
@@ -177,7 +251,7 @@ def build_csv(dt1, dt2, performance_regression_commits_from_peass, project,
                 if "java" not in m.filename:
                     continue
                 f = open("outputs/final.csv", "a")
-                list1 = [commit.hash, commit.author.name, m.filename,
+                list1 = [commit.hash, project, commit.author.name, m.filename,
                          m.nloc, m.complexity,
                          m.added, m.removed,
                          commit_classify[commit.hash]]
@@ -187,7 +261,8 @@ def build_csv(dt1, dt2, performance_regression_commits_from_peass, project,
                 f.write(x)
 
         f = open("outputs/{}-ignored.txt".format(project), "w")
-        f.write(str(performance_regression_commits_from_peass.difference(commit_identified)))
+        f.write(str(performance_regression_commits_from_peass.difference(
+            commit_identified)))
         f.close()
 
 
