@@ -5,10 +5,10 @@ from datetime import datetime
 
 def initialise():
     f = open("outputs/final.csv", "w")
-    f.write("commit hash, repository name, author name, filename, nloc, "
+    f.write("Commit hash, Repository name, Author name, Filename, nloc, "
             "cyclomatic complexity, "
-            "num lines added, "
-            "num lines removed, label" + "\n")
+            "Num lines added, "
+            "Num lines removed, Change type, Label" + "\n")
 
     commons_pool()
     jackson_core()
@@ -234,7 +234,6 @@ def build_csv(dt1, dt2, performance_regression_commits_from_peass, project,
                 continue
             else:
                 commit_classify[commit.hash] = "NPR"
-                number_of_non_perf_files_current += 1
 
         # if the change is in the test case itself, we ignore the commit
         commit_has_changed_tests = False
@@ -245,25 +244,37 @@ def build_csv(dt1, dt2, performance_regression_commits_from_peass, project,
             for m in commit.modifications:
                 if "Test" in m.filename or "test" in m.filename:
                     commit_has_changed_tests = commit_has_changed_tests or True
+
         if not commit_has_changed_tests:
-            for m in commit.modifications:
-                # ignore non java files
-                if "java" not in m.filename:
-                    continue
-                f = open("outputs/final.csv", "a")
-                list1 = [commit.hash, project, commit.author.name, m.filename,
-                         m.nloc, m.complexity,
-                         m.added, m.removed,
-                         commit_classify[commit.hash]]
-                list1 = map(str, list1)
-                x = ",".join(list1)
-                x = "\n" + x
-                f.write(x)
+            if not contains_only_non_java_files(commit):
+                for m in commit.modifications:
+                    # ignore non java files
+                    if "java" not in m.filename:
+                        continue
+                    f = open("outputs/final.csv", "a")
+                    list1 = [commit.hash, project, commit.author.name,
+                             m.filename,
+                             m.nloc, m.complexity,
+                             m.added, m.removed, m.change_type.name,
+                             commit_classify[commit.hash]]
+                    list1 = map(str, list1)
+                    x = ",".join(list1)
+                    x = "\n" + x
+                    f.write(x)
+                if commit_classify[commit.hash] == "NPR":
+                    number_of_non_perf_files_current += 1
 
         f = open("outputs/{}-ignored.txt".format(project), "w")
         f.write(str(performance_regression_commits_from_peass.difference(
             commit_identified)))
         f.close()
+
+
+def contains_only_non_java_files(commit):
+    for m in commit.modifications:
+        if "java" in m.filename:
+            return False
+    return True
 
 
 def main():
